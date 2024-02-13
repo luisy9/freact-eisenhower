@@ -51,7 +51,6 @@ const Box = ({ children, title, mouItem }) => {
     const [{ isOver }, drop] = useDrop({
         accept: ItemType,
         drop: (item, monitor) => {
-            // console.log(item)
             // Obtenir el nom del item que s'ha deixat anar
             const itemName = item.id;
             // Obtain el nom de la caixa on es deixa anar
@@ -92,7 +91,6 @@ const Test = () => {
     // funció que "Mou" un element d'una caixa a l'altra
     const mouItem = (item, caixa) => {
         const nousItems = items.map(it => {
-            console.log(it, item)
             if (it.id === item) {
                 it.caixa = caixa;
             }
