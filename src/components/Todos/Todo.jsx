@@ -13,24 +13,30 @@ const Todo = ({ addTodo, CAIXES }) => {
     }
 
     return (
-        <div className="p-10 border-solid border-2 bg-[#FECACA] 
-        rounded-lg mb-10">
-            <input type="text" value={valueInput} id="" className="border-2 
-            border-solid rounded-lg"
-                onChange={onChangeInput} />
-            <select name="" id="" key='select' onChange={onChangeSelect}>
-                {CAIXES.map((e, index) => {
-                    return (
-                        <>
-                            <option value={e} key={index}>{e}</option>
-                        </>
-                    )
-                })}
-            </select>
+        <div className="w-4/5">
+            <div className="">
+                <textarea type="text" value={valueInput} id="" className="border-2 w-full
+            border-solid rounded-lg border-[#A68AFA] bg-[#A68AFA] bg-opacity-35 p-2 text-white"
+                    placeholder="Add new task..."
+                    onChange={onChangeInput} />
+            </div>
+            <div className="flex justify-between pt-1 pb-5">
+                {/* <div> */}
+                <select className="border rounded-md" name="" id="" key='select' onChange={onChangeSelect}>
+                    {CAIXES.map((e, index) => {
+                        return (
+                            <>
+                                <option value={e} key={index}>{e}</option>
+                            </>
+                        )
+                    })}
+                </select>
 
-            <button className="ml-2 px-3 py-1 rounded-lg 
-            border-2 border-solid hover:bg-red-500"
-                onClick={() => addTodo(valueInput, valueSelect)}>Añadir</button>
+                <button className="px-4 py-1 rounded-lg 
+            border-none bg-white hover:bg-slate-200"
+                    onClick={() => addTodo(valueInput, valueSelect)}>Añadir</button>
+                {/* </div> */}
+            </div>
         </div>
     )
 }
