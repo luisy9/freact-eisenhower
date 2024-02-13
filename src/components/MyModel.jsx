@@ -13,7 +13,7 @@ const CAIXES = ["Do", "Decide", "Delegate", "Delete"]
 const Item = ({ id, name, caixa, setTask, task }) => {
     const [{ isDragging }, drag] = useDrag({
         type: ItemType,
-        item: { type: ItemType, name },
+        item: { type: ItemType, id },
         collect: monitor => ({
             isDragging: !!monitor.isDragging(),
         }),
@@ -22,6 +22,13 @@ const Item = ({ id, name, caixa, setTask, task }) => {
     const deleteTask = (id) => {
         setTask([...task, task].filter(e => e.id != id))
     }
+
+    const changeLocalStorage = (caixa, id) => {
+        const itemsLocalStorage = JSON.parse(localStorage.getItem('tasks'));
+        // const newLocalStorage = itemsLocalStorage
+    }
+
+    changeLocalStorage();
 
     const colorTask = () => {
         if (caixa === 'Do') return 'bg-green-300';
@@ -44,8 +51,9 @@ const Box = ({ children, title, mouItem }) => {
     const [{ isOver }, drop] = useDrop({
         accept: ItemType,
         drop: (item, monitor) => {
+            // console.log(item)
             // Obtenir el nom del item que s'ha deixat anar
-            const itemName = item.name;
+            const itemName = item.id;
             // Obtain el nom de la caixa on es deixa anar
             const containerTitle = title;
             // Moure l'item d'un lloc a l'altre
@@ -84,7 +92,8 @@ const Test = () => {
     // funció que "Mou" un element d'una caixa a l'altra
     const mouItem = (item, caixa) => {
         const nousItems = items.map(it => {
-            if (it.nom === item) {
+            console.log(it, item)
+            if (it.id === item) {
                 it.caixa = caixa;
             }
             return it;
@@ -99,6 +108,8 @@ const Test = () => {
 
     //Add item
     useEffect(() => {
+        //Hacer el localStorage
+        localStorage.setItem('tasks', JSON.stringify([...task]));
         setItems([...task, task]);
     }, [task]);
 
@@ -107,7 +118,6 @@ const Test = () => {
             ['id']: getIdRandom(), ['nom']:
                 valueInput, ['caixa']: valueSelect
         }]);
-
     }
 
     const getIdRandom = () => {
@@ -118,8 +128,8 @@ const Test = () => {
     return (
         <DndProvider backend={HTML5Backend}>
             <div className="flex justify-center">
-                <Todo addTodo={addTodo} CAIXES={CAIXES} setTask={setTask} task={task} 
-                setValueInput={setValueInput} valueInput={valueInput} />
+                <Todo addTodo={addTodo} CAIXES={CAIXES} setTask={setTask} task={task}
+                    setValueInput={setValueInput} valueInput={valueInput} />
             </div>
             <div className="grid grid-cols-2 gap-6">
                 {
