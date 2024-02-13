@@ -51,9 +51,19 @@ const Box = ({ children, title, mouItem }) => {
         }),
     });
 
+    const colors = () => {
+        if (title === 'Do') return 'green';
+        if (title === 'Decide') return 'yellow';
+        if (title === 'Delegate') return 'blue';
+    }
+
     return (
-        <div ref={drop} className={`bg-slate-100 p-8 min-h-[400px] border ${isOver ? 'bg-blue-500' : ''}`}>
-            <h2 className="text-xl text-center mb-4" >{title}</h2>
+        <div ref={drop} className={`bg-[#292929] p-8 min-h-[400px] border rounded-md 
+        ${isOver ? 'bg-blue-500' : ''}${title === 'Delete' ? 'flex justify-center items-center' : ''}`}>
+            <h2 className={`text-xl text-center mb-4`}
+                style={{ color: colors() }}>{title === 'Delete' ?
+                    <img src='/eliminar.png' alt='delete' className='w-12 h-12' />
+                    : `${title}`}</h2>
             {children}
         </div>
     );
