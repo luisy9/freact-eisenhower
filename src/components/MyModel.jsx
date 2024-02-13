@@ -23,14 +23,19 @@ const Item = ({ id, name, caixa, setTask, task }) => {
         setTask([...task, task].filter(e => e.id != id))
     }
 
+    const colorTask = () => {
+        if (caixa === 'Do') return 'bg-green-300';
+        if (caixa === 'Decide') return 'bg-yellow-300';
+        if (caixa === 'Delegate') return 'bg-sky-400';
+    }
+
     return (
         <div
             ref={drag}
-            className="border p-4 bg-red-200 mb-4 flex justify-between"
+            className={`border p-4 mb-4 flex justify-between active:border-[#A68AFA] ${colorTask()} text-white rounded-lg cursor-grab`}
             style={{ opacity: isDragging ? 0.5 : 1 }}
         >
-            {name}{caixa === 'Delete' ? <button className='bg-red-500 px-3 py-1 border-none border-2
-            rounded-lg ' onClick={() => deleteTask(id)}>Delete</button> : <></>}
+            {name}{caixa === 'Delete' && deleteTask(id)}
         </div>
     );
 };
@@ -59,7 +64,7 @@ const Box = ({ children, title, mouItem }) => {
 
     return (
         <div ref={drop} className={`bg-[#292929] p-8 min-h-[400px] border rounded-md 
-        ${isOver ? 'bg-blue-500' : ''}${title === 'Delete' ? 'flex justify-center items-center' : ''}`}>
+        ${isOver ? 'bg-gray-700' : ''}${title === 'Delete' ? 'grid place-content-center' : ''} ${title === 'Delete' && isOver && 'bg-red-600 bg-opacity-15 border-red-600'}`}>
             <h2 className={`text-xl text-center mb-4`}
                 style={{ color: colors() }}>{title === 'Delete' ?
                     <img src='/eliminar.png' alt='delete' className='w-12 h-12' />

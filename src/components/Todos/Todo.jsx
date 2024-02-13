@@ -16,7 +16,7 @@ const Todo = ({ addTodo, CAIXES }) => {
         <div className="w-4/5">
             <div className="">
                 <textarea type="text" value={valueInput} id="" className="border-2 w-full
-            border-solid rounded-lg border-[#A68AFA] bg-[#A68AFA] bg-opacity-35 p-2 text-white"
+            border-solid rounded-lg border-[#A68AFA] bg-[#A68AFA] bg-opacity-35 p-2 text-white" style={{height: '100px'}}
                     placeholder="Add new task..."
                     onChange={onChangeInput} />
             </div>
