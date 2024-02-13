@@ -92,10 +92,12 @@ const Test = () => {
         setItems(nousItems)
     }
 
+    //Reset Input
     useEffect(() => {
-        setValueInput('')
+        setValueInput('');
     }, [items])
 
+    //Add item
     useEffect(() => {
         setItems([...task, task]);
     }, [task]);
