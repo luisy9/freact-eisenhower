@@ -56,6 +56,7 @@ const Box = ({ children, title, mouItem }) => {
         }),
     });
 
+    //No me gusta pero funciona
     const colors = () => {
         if (title === 'Do') return 'green';
         if (title === 'Decide') return 'yellow';
@@ -78,6 +79,7 @@ const Test = () => {
 
     const [items, setItems] = useState([]);
     const [task, setTask] = useState([]);
+    const [valueInput, setValueInput] = useState('');
 
     // funció que "Mou" un element d'una caixa a l'altra
     const mouItem = (item, caixa) => {
@@ -91,11 +93,19 @@ const Test = () => {
     }
 
     useEffect(() => {
+        setValueInput('')
+    }, [items])
+
+    useEffect(() => {
         setItems([...task, task]);
-    }, [task])
+    }, [task]);
 
     const addTodo = (valueInput, valueSelect) => {
-        setTask([...task, { ['id']: getIdRandom(), ['nom']: valueInput, ['caixa']: valueSelect }]);
+        setTask([...task, {
+            ['id']: getIdRandom(), ['nom']:
+                valueInput, ['caixa']: valueSelect
+        }]);
+
     }
 
     const getIdRandom = () => {
@@ -106,7 +116,8 @@ const Test = () => {
     return (
         <DndProvider backend={HTML5Backend}>
             <div className="flex justify-center">
-                <Todo addTodo={addTodo} CAIXES={CAIXES} setTask={setTask} task={task} />
+                <Todo addTodo={addTodo} CAIXES={CAIXES} setTask={setTask} task={task} 
+                setValueInput={setValueInput} valueInput={valueInput} />
             </div>
             <div className="grid grid-cols-2 gap-6">
                 {
