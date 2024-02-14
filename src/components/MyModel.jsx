@@ -10,7 +10,8 @@ const ItemType = 'ITEM';
 const CAIXES = ["Do", "Decide", "Delegate", "Delete"]
 
 
-const Item = ({ id, name, caixa, setTask, task }) => {
+const Item = ({ id, name, caixa, setTask, task, items, setItems }) => {
+
     const [{ isDragging }, drag] = useDrag({
         type: ItemType,
         item: { type: ItemType, id },
@@ -20,15 +21,16 @@ const Item = ({ id, name, caixa, setTask, task }) => {
     });
 
     const deleteTask = (id) => {
-        setTask([...task, task].filter(e => e.id != id))
+        const deleteTask = task.filter(e => e.id !== id);
+        setTask(deleteTask);
+        // localStorage.setItem('tasks', JSON.stringify(deleteTask));
     }
 
-    const changeLocalStorage = (caixa, id) => {
-        const itemsLocalStorage = JSON.parse(localStorage.getItem('tasks'));
-        // const newLocalStorage = itemsLocalStorage
-    }
+    // const changeLocalStorage = (caixa, id) => {
+    //    console.log(caixa, id);
+    // }
 
-    changeLocalStorage();
+    // changeLocalStorage();
 
     const colorTask = () => {
         if (caixa === 'Do') return 'bg-green-300';
@@ -108,10 +110,11 @@ const Test = () => {
     useEffect(() => {
         //Hacer el localStorage
         localStorage.setItem('tasks', JSON.stringify([...task]));
-        setItems([...task, task]);
+        setItems([...task]);
     }, [task]);
 
     const addTodo = (valueInput, valueSelect) => {
+        //seteamos el objeto de tasks en el useStore de tasks
         setTask([...task, {
             ['id']: getIdRandom(), ['nom']:
                 valueInput, ['caixa']: valueSelect
@@ -136,7 +139,8 @@ const Test = () => {
                             {
                                 items.filter(e => e.caixa == caixa)
                                     .map(e => <Item id={e.id} key={e.nom}
-                                        name={e.nom} caixa={caixa} setTask={setTask} task={task} />)
+                                        name={e.nom} caixa={caixa} setTask={setTask}
+                                        task={task} items={items} setItems={setItems} />)
                             }
                         </Box>
                     ))
