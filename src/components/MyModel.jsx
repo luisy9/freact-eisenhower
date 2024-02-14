@@ -113,6 +113,9 @@ const Test = () => {
     //Add item
     useEffect(() => {
         //Hacer el localStorage
+        // const storedTasks = localStorage.getItem('tasks');
+        // console.log(storedTasks)
+
         localStorage.setItem('tasks', JSON.stringify(task));
         setItems(task);
     }, [task]);
