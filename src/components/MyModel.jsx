@@ -23,7 +23,6 @@ const Item = ({ id, name, caixa, setTask, task, items, setItems }) => {
     const deleteTask = (id) => {
         const deleteTask = task.filter(e => e.id !== id);
         setTask(deleteTask);
-        // localStorage.setItem('tasks', JSON.stringify(deleteTask));
     }
 
     // const changeLocalStorage = (caixa, id) => {
@@ -101,6 +100,11 @@ const Test = () => {
         setItems(nousItems)
     }
 
+    useEffect(() => {
+        const storedTasks = localStorage.getItem('tasks');
+        setTask(JSON.parse(storedTasks));
+    }, []);
+
     //Reset Input
     useEffect(() => {
         setValueInput('');
@@ -109,8 +113,8 @@ const Test = () => {
     //Add item
     useEffect(() => {
         //Hacer el localStorage
-        localStorage.setItem('tasks', JSON.stringify([...task]));
-        setItems([...task]);
+        localStorage.setItem('tasks', JSON.stringify(task));
+        setItems(task);
     }, [task]);
 
     const addTodo = (valueInput, valueSelect) => {
